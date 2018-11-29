@@ -1,0 +1,93 @@
+body {
+    background-color: #fff9c4;
+}
+section, aside {
+    border: 2px solid;
+    margin: 10px;
+}
+.pricingTable th, .pricingTable {
+    border: 1px solid;
+}
+/* child */
+#productDescription > h2 {
+  color: pink;
+}
+
+#productDescription {
+  color: green;
+}
+/* descendant */
+#news {
+  color: yellow;
+}
+
+#news h2 {
+  color: yellow
+}
+/* attribute */
+input[type] {
+  background-color: pink
+}
+
+/* important */
+.BuyClass .userInformation{
+  background: red
+}
+
+.userInformation {
+  background: yellow !important
+}
+
+.BuyClass .notMandatory {
+  background: green
+}
+
+/* inherit */
+
+.shouldntBuy {
+  background: greenyellow
+}
+
+p {
+  background: red;
+}
+
+.shouldntBuy p {
+  background: inherit
+}
+
+.BuyClass {
+  float: left;
+}
+
+#pricing {
+  float: right;
+}
+
+@media screen and (max-width: 825px) {
+  .BuyClass {
+      width: auto !important;
+      float: none !important;
+  }
+  #pricing {
+      width: auto;
+      float: none;
+  }
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+.landingContainer {
+  position: relative;
+}
+
+.landingTitle {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 18px;
+}
