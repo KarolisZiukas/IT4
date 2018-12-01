@@ -1,5 +1,6 @@
 var form = $("#buy");
-
+var reviewForm = $("#write")
+var uri = "https://api.myjson.com/bins/pqbve"
 form.on('submit', function (event) {
   var data = {
     email: form.find("input[name='email']").val(),
@@ -8,17 +9,26 @@ form.on('submit', function (event) {
   event.preventDefault();
 });
 
+reviewForm.on('submit', function (event) {
+var data = {
+  name: reviewForm.find("input[name='name']").val(),
+  review: reviewForm.find("textarea[name='reviewText']").val(),
+};
+  postData(data);
+  event.preventDefault();
+});
+
 // Įvedimo laukas, kuriame kažkas turi būti įvesta (kuris negali būti paliktas tuščias)
 function validateForm() {
-  // if(!isPositiveInteger(form.find("[name='number']").val())) {
-  //   alert("Phone number must be normal number")
-  //   return false
-  // }
-  // var email = document.forms["buy-form"]["email"].value;
-  // if (email == "") {
-  //   alert("Email cannot be empty");
-  //   return false;
-  // }
+  if(!isPositiveInteger(form.find("[name='number']").val())) {
+    alert("Phone number must be normal number")
+    return false
+  }
+  var email = document.forms["buy-form"]["email"].value;
+  if (email == "") {
+    alert("Email cannot be empty");
+    return false;
+  }
   var inputDate = form.find("[name='date']").val()
   if(!isStringDate(inputDate)) {
     alert("Wrong date format");
@@ -45,10 +55,6 @@ function isStringDate(inputDate) {
     var month = Number(array[1]);
     var day = Number(array[2]);
 
-    if (array[0] != year) {
-        return false;
-    }
-
     if (month < 1 || month > 12) {
         return false;
     }
@@ -71,8 +77,60 @@ function isStringDate(inputDate) {
 }
 
 $(document).ready(function () {
-    initialize();
 });
 
-function initialize() {
+//HTML puslapio elementų paslėpimas/parodymas (ne išmetimas)
+function checkPswLenght(value) {
+  var error = $("#too-short-psw")
+  if(value.length > 0 && value.length < 6 ) {
+    console.log(value.length);
+    error.css('display', 'inline');
+  } else {
+    error.css('display', 'none');
+  }
+}
+
+//Įvedimo formoje pateiktų duomenų serializavimas JSON formatu ir patalpinimas vienoje iš šių sistemų (naudojantis pateikiamu API):
+function postData(data) {
+  console.log(data.review);
+      $.ajax({
+          url: "https://api.myjson.com/bins",
+          type: "POST",
+          dataType: "json",
+          data: JSON.stringify(data),
+          contentType: "application/json; charset=utf-8",
+          success: function (data) {
+              uri = data["uri"];
+              console.log(uri);
+          },
+          error: function (xhr, status, error) {
+              console.log(error);
+          }
+      });
+}
+
+function getData() {
+    if (uri !== "") {
+        $.ajax({
+            url: uri,
+            type: "GET",
+            success: function (data) {
+                fillTable(data)
+                console.log(data);
+                uri = "";
+            },
+            error: function () {
+                console.log("error");
+            }
+        });
+    }
+}
+
+function fillTable(data) {
+    var table = $("#reviews-table");
+    var row = $("<tr></tr>");
+    table.append(row);
+    for (var val in data) {
+        row.append("<td>" + data[val] + "</td>");
+    }
 }

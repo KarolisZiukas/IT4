@@ -60,10 +60,6 @@ p {
   float: left;
 }
 
-#pricing {
-  float: right;
-}
-
 @media screen and (max-width: 825px) {
   .BuyClass {
       width: auto !important;
@@ -90,4 +86,8 @@ img {
   left: 50%;
   transform: translate(-50%, -50%);
   font-size: 18px;
+}
+
+#too-short-psw {
+  display: none;
 }

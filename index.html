@@ -62,6 +62,41 @@
         </article>
     </section>
 
+    <section id="reviews">
+        <h2>Reviews</h2>
+        <article class="review">
+            <h2>James</h2>
+            <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus tincidunt sapien eget nibh varius
+                venenatis. Duis at suscipit quam, vitae placerat velit. Suspendisse metus est, condimentum eget
+                sollicitudin non, feugiat a ex. Integer ante enim, mollis sit amet justo a, rhoncus placerat dolor.
+                Nulla dictum malesuada pretium. Mauris gravida turpis at justo suscipit, a efficitur dolor tincidunt.
+                Sed eget diam non diam congue cursus facilisis at dolor. Nam varius lacus id faucibus maximus. Aenean
+                feugiat, turpis vitae blandit cursus, quam diam fringilla lorem, eu consectetur turpis risus nec sem.
+                Nunc vel nibh diam. Morbi eu nunc ultrices, elementum libero et, porta dui. Nunc tincidunt massa dictum
+                nisl luctus vehicula.
+            </p>
+        </article>
+    </section>
+    <form name="write-review" id="write" method="post">
+      Your name:<br>
+      <input type="text" name="name"/>
+      <br>
+      What you think about us?<br>
+      <textarea name="reviewText" cols="80" rows="5"></textarea>
+      <input type="submit" name="submitReview">
+    </form>
+    <section id="reviewsSections">
+        <h2>Auditorijos</h2>
+        <button onclick="getData()">Get remote reviews</button>
+
+        <table id="reviews-table" border="1">
+            <tr>
+                <th>Name</th>
+                <th>Review</th>
+            </tr>
+        </table>
+    </section>
     <section id="pricing">
         <h2>Pricing</h2>
         <table class="pricingTable">
@@ -115,7 +150,8 @@
                 <input name="number" required/>
                 <br>
                 Password:<br>
-                <input type="password" name="psw">
+                <input type="password" name="psw" oninput="checkPswLenght(this.value)">
+                <a id="too-short-psw">Too short</a>
                 <br>
                 Repeat password:<br>
                 <input type="password" name="pswrepeat" >
@@ -144,6 +180,8 @@
             <input type="submit" name="submit" value="Submit">
         </form>
     </div>
+
+
 </body>
 
 <script type="text/javascript" src="jquery-3.3.1.js"></script>
