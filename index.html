@@ -64,8 +64,21 @@
 
     <section id="reviews">
         <h2>Reviews</h2>
-        <article class="review">
+        <article>
             <h2>James</h2>
+            <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus tincidunt sapien eget nibh varius
+                venenatis. Duis at suscipit quam, vitae placerat velit. Suspendisse metus est, condimentum eget
+                sollicitudin non, feugiat a ex. Integer ante enim, mollis sit amet justo a, rhoncus placerat dolor.
+                Nulla dictum malesuada pretium. Mauris gravida turpis at justo suscipit, a efficitur dolor tincidunt.
+                Sed eget diam non diam congue cursus facilisis at dolor. Nam varius lacus id faucibus maximus. Aenean
+                feugiat, turpis vitae blandit cursus, quam diam fringilla lorem, eu consectetur turpis risus nec sem.
+                Nunc vel nibh diam. Morbi eu nunc ultrices, elementum libero et, porta dui. Nunc tincidunt massa dictum
+                nisl luctus vehicula.
+            </p>
+        </article>
+        <article>
+            <h2>John</h2>
             <p>
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus tincidunt sapien eget nibh varius
                 venenatis. Duis at suscipit quam, vitae placerat velit. Suspendisse metus est, condimentum eget
@@ -79,12 +92,23 @@
         </article>
     </section>
     <form name="write-review" id="write" method="post">
+      <select id="review-select" size="1" onchange="reviewSelectChanged(this.value)">
+          <option value="new">Add new</option>
+      </select>
+      <select id="review-color" onchange="selectReviewColor(this.value)">
+        <option value="yellow" selected>Yellow</option>
+        <option value="greenyellow">Green</option>
+        <option value="purple">Purple</option>
+      </select>
+      <br>
       Your name:<br>
-      <input type="text" name="name"/>
+      <input type="text" name="name" id="name-field"/>
       <br>
       What you think about us?<br>
-      <textarea name="reviewText" cols="80" rows="5"></textarea>
-      <input type="submit" name="submitReview">
+      <textarea name="reviewText" cols="80" rows="5" id="review-field"></textarea>
+      <button id="edit-button" onclick="editReview()">Edit</button>
+      <button id="delete-button" onclick="deleteReview()">Delete</button>
+      <input type="submit" id="submitReview" onclick="addReview()">
     </form>
     <section id="reviewsSections">
         <h2>Auditorijos</h2>

@@ -9,6 +9,10 @@ form.on('submit', function (event) {
   event.preventDefault();
 });
 
+$(document).ready(function () {
+    initialize();
+});
+
 reviewForm.on('submit', function (event) {
 var data = {
   name: reviewForm.find("input[name='name']").val(),
@@ -133,4 +137,80 @@ function fillTable(data) {
     for (var val in data) {
         row.append("<td>" + data[val] + "</td>");
     }
+}
+
+function addReviewsNumbers() {
+    var reviews= $("section#reviews article");
+    var dropdown = $("select#review-select");
+    dropdown.find("option[value!='new']").remove();
+    console.log(reviews.length);
+    for (var i = 0; i < reviews.length; i++) {
+        dropdown.append(
+            "<option value='" + i + "'>" + i + "</option>"
+        )
+    }
+}
+
+function reviewSelectChanged(reviewValue) {
+    var addButton = $("#submitReview");
+    var changeButton = $("#edit-button");
+    var deleteButton = $("#delete-button");
+    if (reviewValue === "new") {
+        addButton.show();
+        changeButton.hide();
+        deleteButton.hide();
+        clearEditingFields();
+    } else {
+        addButton.hide();
+        changeButton.show();
+        deleteButton.show();
+        fillEditingFields(reviewValue);
+    }
+}
+
+function fillEditingFields(reviewNo) {
+    var review = $("section#reviews article").eq(reviewNo);
+    $("#name-field").val(review.find("h2").text());
+    $("#review-field").val(review.find("p").text());
+}
+//Egzistuojančių HTML dokumento žymių tekstinio turinio pakeitimas (pvz. paragrafo teksto pakeitimas)
+function editReview() {
+    var review = $("section#reviews article").eq($("#review-select").val());
+    var nameField = $("#name-field").val();
+    var reviewField = $("#review-field").val();
+
+    review.find("h2").text(nameField);
+    review.find("p").text(reviewField);
+}
+
+//Naujų žymių įterpimas (pvz. teksto gale pridėti paragrafą su tekstu, įvestu įvedimo lauke)
+function addReview() {
+    var nameField = $("#name-field").val();
+    var reviewField = $("#review-field").val();
+
+    if (nameField.length > 0 && reviewField.length > 0) {
+        $("section#reviews").append(
+            "<article class='justAdded red'>" +
+            "<h2>" + nameField + "</h2>" +
+            "<p>" + reviewField + "</p>" +
+            "</article>"
+        )
+    }
+    initialize();
+}
+
+//Egzistuojančių žymių išmetimas (pvz. ištrinti įvedimo lauke numeriu nurodytą paragrafą)
+function deleteReview() {
+    $("section#reviews article").eq($("#review-select").val()).remove();
+    initialize();
+}
+
+//Egzistuojančių žymių stiliaus pakeitimas (atributui style priskiriant naują reikšmę)
+function selectReviewColor(color) {
+    $("p").css('background-color', color);
+}
+
+function initialize() {
+    addReviewsNumbers();
+    reviewSelectChanged("new")
 }
